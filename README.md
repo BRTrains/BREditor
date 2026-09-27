@@ -12,6 +12,8 @@ The File System Access API is required for browsing and saving local folders. It
 
 - Select a workspace folder and switch between valid project folders.
 - Discover `.yaml` and `.yml` files recursively under `src`.
-- Edit with lightweight YAML syntax highlighting.
+- Edit with lightweight YAML syntax highlighting in the Raw YAML tab.
 - Save changes directly to the selected file.
+- The template editor provides guided fields for the common root-level `BRBuild.yaml` project settings. The Raw YAML tab remains available for direct editing of any discovered YAML file.
+- The last workspace selection is stored locally and restored when permission remains available. On first use, choose the parent folder containing `BREditor` and the sibling projects.
 - Reserved sprite panel for future sprite/light-position editing.

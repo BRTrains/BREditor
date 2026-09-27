@@ -19,13 +19,27 @@
       <div id="file-list" class="file-list"><div class="empty-state">Choose a workspace folder to find BRBuild projects.</div></div>
     </aside>
     <section class="editor-panel">
-      <div class="editor-toolbar">
-        <div><strong id="file-name">No file selected</strong><span id="dirty-state" class="dirty-state"></span></div>
-        <div class="toolbar-actions"><button id="save-file" class="button" disabled>Save</button></div>
+      <nav class="tabs" aria-label="Editor views">
+        <button id="template-tab" class="tab active" type="button">Template editor</button>
+        <button id="raw-tab" class="tab" type="button">Raw YAML</button>
+      </nav>
+      <div id="template-view" class="template-view">
+        <div class="template-header"><div><h1>BRBuild project template</h1><p>Common project settings with guidance for each value.</p></div><button id="save-template" class="button" disabled>Save template</button></div>
+        <form id="template-form" class="template-form">
+          <label>Project name <span class="help" title="The project name used in generated output and build metadata.">?</span><input id="template-name" name="name" type="text"></label>
+          <label class="check-label"><input id="template-build" name="build" type="checkbox"><span>Build project</span><span class="help" title="When enabled, BRBuild includes this project in a build run.">?</span></label>
+          <label>Target folders <span class="help" title="One or more folders BRBuild scans for vehicle definitions, relative to the project root.">?</span><textarea id="template-target-folders" name="target_folders" rows="3" placeholder="src/vehicles"></textarea></label>
+          <label>GRF folder <span class="help" title="Folder containing the GRF YAML and related source files.">?</span><input id="template-grf-folder" name="grf_folder" type="text"></label>
+          <label>Palette <span class="help" title="Palette file used when processing sprites, relative to the project root.">?</span><input id="template-palette" name="palette" type="text"></label>
+          <label>Template folder <span class="help" title="Optional folder containing reusable sprite/NML templates.">?</span><input id="template-folder" name="template_folder" type="text"></label>
+        </form>
       </div>
-      <div class="editor-wrap">
-        <pre id="highlight-layer" aria-hidden="true"></pre>
-        <textarea id="editor" spellcheck="false" placeholder="Select a YAML file to edit" disabled></textarea>
+      <div id="raw-view" class="raw-view hidden">
+        <div class="editor-toolbar">
+          <div><strong id="file-name">No file selected</strong><span id="dirty-state" class="dirty-state"></span></div>
+          <div class="toolbar-actions"><button id="save-file" class="button" disabled>Save</button></div>
+        </div>
+        <div class="editor-wrap"><pre id="highlight-layer" aria-hidden="true"></pre><textarea id="editor" spellcheck="false" placeholder="Select a YAML file to edit" disabled></textarea></div>
       </div>
       <div id="status" class="status">Offline mode · Changes stay on your local filesystem.</div>
     </section>
