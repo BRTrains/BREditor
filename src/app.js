@@ -17,15 +17,17 @@ async function discoverProjects() {
   state.projects = [];
   for await (const [name, handle] of state.workspace.entries()) {
     if (handle.kind !== 'directory' || name === 'node_modules' || name.startsWith('.')) continue;
-    if (await hasDirectory(handle, 'src')) state.projects.push({ name, handle });
+    if (await isValidProject(handle)) state.projects.push({ name, handle });
   }
   state.projects.sort((a,b) => a.name.localeCompare(b.name));
   projectSelect.replaceChildren(...(state.projects.length ? state.projects.map(p => new Option(p.name, p.name)) : [new Option('No projects found', '')]));
   projectSelect.disabled = !state.projects.length;
   $('workspace-label').textContent = state.workspace.name;
-  if (state.projects.length) await selectProject(state.projects[0].name); else resetEditor('No child folders with a src directory were found.');
+  if (state.projects.length) await selectProject(state.projects[0].name); else resetEditor('No child folders with BRBuild.yaml and src were found.');
 }
+async function isValidProject(handle) { return await hasDirectory(handle, 'src') && await hasFile(handle, 'BRBuild.yaml'); }
 async function hasDirectory(parent, name) { try { return (await parent.getDirectoryHandle(name)).kind === 'directory'; } catch { return false; } }
+async function hasFile(parent, name) { try { return (await parent.getFileHandle(name)).kind === 'file'; } catch { return false; } }
 async function selectProject(name) {
   state.project = state.projects.find(p => p.name === name) || null;
   if (!state.project) return;
