@@ -10,10 +10,16 @@ The File System Access API is required for browsing and saving local folders. It
 
 ## Current scope
 
-- Select a workspace folder and switch between valid project folders.
-- Discover `.yaml` and `.yml` files recursively under `src`.
-- Edit with lightweight YAML syntax highlighting in the Raw YAML tab.
-- Save changes directly to the selected file.
-- The template editor provides guided fields for the common root-level `BRBuild.yaml` project settings. The Raw YAML tab remains available for direct editing of any discovered YAML file.
+- Select a workspace folder containing BRBuild projects and switch between them from a dropdown.
+- A project is any sibling folder with both a root `BRBuild.yaml` and a `src` directory.
+- The left column lists the project's configuration files and every vehicle YAML found under the `target_folders` declared in `BRBuild.yaml`.
+- Dedicated forms for:
+  - `BRBuild.yaml` — project name, build flag, target folders, palette, template folder.
+  - `src/grf/GRF.yaml` — GRFID, names, description, versions, purchase list order.
+  - `src/grf/RailTypes.yaml` — one field per logical track type, listing railtype labels in fallback order.
+  - Vehicle files — identifier, name, subtitle, vehicle and train type (BRBuild enum values), weight, power, speed, introduction date, and fuel types.
+- Every field carries a tooltip describing its range and usage.
+- Raw YAML tab gives direct syntax-highlighted editing of whichever file is selected in the list.
+- Forms write back to the same file, changing only the lines they own: comments, ordering and unrelated values are preserved.
 - The last workspace selection is stored locally and restored when permission remains available. On first use, choose the parent folder containing `BREditor` and the sibling projects.
 - Reserved sprite panel for future sprite/light-position editing.
