@@ -23,3 +23,13 @@ The File System Access API is required for browsing and saving local folders. It
 - Forms write back to the same file, changing only the lines they own: comments, ordering and unrelated values are preserved.
 - The last workspace selection is stored locally and restored when permission remains available. On first use, choose the parent folder containing `BREditor` and the sibling projects.
 - Reserved sprite panel for future sprite/light-position editing.
+
+## Verifying
+
+`tools/verify.mjs` runs the real `src/app.js` under a minimal DOM and File System Access API stub, against a real project on disk, and fails if any vehicle form does not round-trip byte-for-byte or if a quoting/enum case is mishandled:
+
+```bash
+node tools/verify.mjs [path-to-project]   # defaults to /home/jon/BRTrains3
+```
+
+No dependencies; the exit code is 1 when anything is wrong.
