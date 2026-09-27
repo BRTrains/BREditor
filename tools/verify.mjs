@@ -103,10 +103,23 @@ check('every power_type value is a known fuel', offFuel.join(', '), '');
 {
   const file = path.join(vehiclesDir, 'BR101/BR101.yaml');
   if (fs.existsSync(file)) {
-    openVehicle(fs.readFileSync(file, 'utf8'));
-    check('vehicle_type select populated', dom['f-vtype'].value, call('readSectionValue', fs.readFileSync(file, 'utf8'), 'stats', 'vehicle_type'));
+    const text = fs.readFileSync(file, 'utf8');
+    openVehicle(text);
+    check('vehicle_type select populated', dom['f-vtype'].value, call('readSectionValue', text, 'stats', 'vehicle_type'));
     check('train_type select populated', dom['f-ttype'].value, 'multiple_unit');
     check('fuel checkboxes populated', FUELS.filter((f) => dom[`f-power-${f}`].checked).join(','), 'diesel');
+  }
+}
+
+// 2b. the left column labels vehicles by name, not by path
+{
+  const file = path.join(vehiclesDir, 'BR101/BR101.yaml');
+  if (fs.existsSync(file)) {
+    const text = fs.readFileSync(file, 'utf8');
+    const button = call('fileButton', { name: 'BR101.yaml', path: 'src/vehicles/BR101/BR101.yaml', handle: null });
+    check('vehicle list shows the plain name', button.textContent, 'BR101');
+    check('vehicle list keeps the path in the tooltip', button.title, 'src/vehicles/BR101/BR101.yaml');
+    check('vehicle list keeps the path for selection', button.dataset.path, 'src/vehicles/BR101/BR101.yaml');
   }
 }
 
