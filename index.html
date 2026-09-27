@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BR Editor</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">BR</span><span>Editor</span></div>
+    <button id="choose-workspace" class="button primary">Choose workspace folder</button>
+    <label class="project-picker">Project <select id="project-select" disabled><option>Choose a workspace first</option></select></label>
+    <span id="workspace-label" class="muted">No workspace selected</span>
+  </header>
+  <main class="app-shell">
+    <aside class="sidebar">
+      <div class="panel-heading"><span>YAML files</span><span id="file-count" class="count">0</span></div>
+      <div id="file-list" class="file-list"><div class="empty-state">Choose a workspace folder to find BRBuild projects.</div></div>
+    </aside>
+    <section class="editor-panel">
+      <div class="editor-toolbar">
+        <div><strong id="file-name">No file selected</strong><span id="dirty-state" class="dirty-state"></span></div>
+        <div class="toolbar-actions"><button id="save-file" class="button" disabled>Save</button></div>
+      </div>
+      <div class="editor-wrap">
+        <pre id="highlight-layer" aria-hidden="true"></pre>
+        <textarea id="editor" spellcheck="false" placeholder="Select a YAML file to edit" disabled></textarea>
+      </div>
+      <div id="status" class="status">Offline mode · Changes stay on your local filesystem.</div>
+    </section>
+    <aside class="sprite-panel">
+      <div class="panel-heading">Sprites <span class="coming-soon">Coming next</span></div>
+      <div class="sprite-placeholder"><div class="sprite-icon">✦</div><h2>Sprite workspace</h2><p>Sprite previews and direct head/tail light positioning will appear here.</p></div>
+    </aside>
+  </main>
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>
